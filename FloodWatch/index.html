@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" dir="itr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FloodWatch Web-App</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+  </head>
+
+  <body>
+    <!--Navigation Menu-->
+    <nav>
+      <div class="nav-container">
+        <div class="logo">
+          <img src="FloodWatch.png" alt="FloodWatch Logo">
+        </div>
+        <div class="links">
+      <div class="link"><a href="index.html">Home</a></div>
+      <div class="link"><a href="#">Flood Susceptibility Map</div>
+      <div class="link"><a href="#">Documentation</a></div>
+      <div class="link"><a href="AboutPage.html">About</a></div>
+    </div>
+    <i class="fa-solid fa-bars hamburger" onclick="hamburger()"></i>
+    </div>
+    <div class="dropdown">
+      <div class="links">
+        <a href="#">Home</a>
+        <a href="#">Flood Susceptibility Map</a>
+        <a href="#">Documentation</a>
+        <a href="#">About</a>
+        <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+        </div>
+      </div>
+    </nav>
+    </div>
+
+        <!-- Main Layout -->
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a>User Input Info</a>
+            <a>Constant Factors</a>
+            <a>Compute button</a>
+            <a>Result of Machine Learning</a>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-container">
+          <div class="map-box">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.738007983163!2d120.96237307508307!3d14.329796686882556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c994c48bb24f%3A0x9cead24b60226a83!2sDasmari%C3%B1as%2C%20Cavite!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <div class="result-box">
+            <h3>Result Box (NLP Feature)</h3>
+          </div>
+
+           <div class="col-lg-6">
+              <div class="form">
+                <h4>Send us a message</h4>
+
+                <form action="" method="post" role="form" class="contactForm">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="name"
+                      class="form-control"
+                      id="name"
+                      placeholder="Your Name"
+                      data-rule="minlen:4"
+                      data-msg="Please enter at least 4 chars"
+                    />
+                    <div class="validation"></div>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      id="email"
+                      placeholder="Your Email"
+                      data-rule="email"
+                      data-msg="Please enter a valid email"
+                    />
+                    <div class="validation"></div>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="subject"
+                      id="subject"
+                      placeholder="Subject"
+                      data-rule="minlen:4"
+                      data-msg="Please enter at least 8 chars of subject"
+                    />
+                    <div class="validation"></div>
+                  </div>
+
+                  <div id="sendmessage">
+                    Your message has been sent. Thank you!
+                  </div>
+                  <div id="errormessage"></div>
+
+                  <div class="text-center">
+                    <button type="submit" title="Send Message">
+                      Send Message
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- #footer -->
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <!-- Uncomment below i you want to use a preloader -->
+    <!-- <div id="preloader"></div> -->
+
+    <!-- JavaScript Libraries -->
+    <script src="{{ url_for('static', filename='lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jquery/jquery-migrate.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/mobile-nav/mobile-nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/counterup/counterup.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/isotope/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/lightbox/js/lightbox.min.js') }}"></script>
+    <!-- Contact Form JavaScript File -->
+    <script src="{{ url_for('static', filename='contactform/contactform.js') }}"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+        </main>
+    </div>
+        </div>
+
+</body>
+</html>

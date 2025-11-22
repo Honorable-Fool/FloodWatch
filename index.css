@@ -64,7 +64,6 @@ section .main-container{
 
 
 .nav-container {
-  max-width: 1300px;
   width: 100%;
   padding: 12px 30px;
   display: flex;
@@ -156,7 +155,6 @@ section .main-container{
 
 .layout {
   display: flex;
-  margin-top: 90px; 
 }
 
 
@@ -198,8 +196,8 @@ section .main-container{
   height: 10px;
 }
 
-.low { background: #00ff37; }
-.moderate { background: yellow; }
+.low { background: yellow; }
+.moderate { background: orange; }
 .high { background: red; }
 
 .alert-labels {
@@ -211,6 +209,7 @@ section .main-container{
 .warning-btn {
   width: 100%;
   padding: 12px;
+  opacity: 0.2;
   margin-top: 10px;
   border: none;
   border-radius: 6px;
@@ -237,11 +236,40 @@ section .main-container{
 }
 
 
-
 .yellow-dot {
   width: 12px;
   height: 12px;
   background: yellow;
   border-radius: 50%;
   display: inline-block;
+}
+
+.advisory-box {
+  height: 250px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #055505;
+  opacity: 0.2;
+  border: 1px solid black;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.team {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.team-circle ul li{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 128px;
+}
+
+.team-circle .circle{
+  width: 200px;
+  height: 200px;
+  background-color: gray;
+  border-radius: 50%;
 }

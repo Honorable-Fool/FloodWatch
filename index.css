@@ -61,8 +61,6 @@ section .main-container{
     align-items: center;
 }
 
-
-
 .nav-container {
   width: 100%;
   padding: 12px 30px;
@@ -70,7 +68,6 @@ section .main-container{
   justify-content: space-between;
   align-items: center;
 }
-
 
 .logo img {
     height: 400px;  
@@ -90,8 +87,6 @@ section .main-container{
     text-shadow: 0 0 10px #0f3238; 
 }
 
-
-
 .nav-links a {
   position: relative;
   font-size: 16px;
@@ -102,7 +97,6 @@ section .main-container{
   justify-content: right;
   
 }
-
 
 .nav-links a::after {
   content: "";
@@ -119,7 +113,6 @@ section .main-container{
 .nav-links a:hover::after {
   width: 100%;
 }
-
 
 .dropdown-menu {
   display: none;
@@ -142,7 +135,6 @@ section .main-container{
   cursor: pointer;
 }
 
-
 @media (max-width: 900px) {
   .nav-links {
     display: none;
@@ -152,25 +144,77 @@ section .main-container{
   }
 }
 
-
 .layout {
   display: flex;
 }
 
-
 .sidebar {
-  width: 260px;
+  width: 300px;
   background: #0d2557;
   color: white;
   padding: 20px;
   height: 100vh;
 }
 
-.input-box input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
+label {
+    font-size: 1em;
+    font-weight: bold; 
+    display: block; 
+    margin-bottom: 5px; 
+    color: #0d2557
+}
+
+input[type="text"],
+input[type="number"],
+input[list] { 
+    border-radius: 8px; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    width: 100%; 
+    box-sizing: border-box; 
+    font-size: 1em; 
+    margin-bottom: 15px; 
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[list]:focus { 
+    border-color: #007bff; 
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+.submit-form {
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    padding: 12px 20px; 
+    font-size: 1.1em; 
+    font-weight: bold; 
+    cursor: pointer; 
+    width: 100%; 
+    transition: background-color 0.3s ease; 
+}
+
+.submit-form:hover {
+    background-color: #0056b3; 
+}
+.submit-form:active {
+    background-color: #004085; 
+}
+
+datalist option {
+    padding: 5px; 
+}
+/* Ensure the form looks good overall */
+#floodForm {
+    max-width: 500px; 
+    margin: 0 auto; 
+    padding: 20px;
+    background-color: #f9f9f9; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .location-btn {
@@ -183,8 +227,6 @@ section .main-container{
   color: white;
   cursor: pointer;
 }
-
-
 
 .alert-bar {
   display: flex;
@@ -205,8 +247,7 @@ section .main-container{
   justify-content: space-between;
 }
 
-
-.warning-btn {
+.rectangle-alert {
   width: 100%;
   padding: 12px;
   opacity: 0.2;
@@ -216,10 +257,21 @@ section .main-container{
   cursor: pointer;
 }
 
+.rectangle-alert p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px; 
+}
+
 .yellow { background: #ffd32a; }
 .orange { background: #ff8c00; }
 .red { background: #ff3b30; }
 
+.rectangle-alert.active{
+  opacity:1;
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
 
 .main-container {
   flex: 1;

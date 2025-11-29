@@ -36,6 +36,31 @@ def pip_install():
         if os.name == "nt"
         else VENV_DIR / "bin" / "python"
     )
+    # Ensure the venv's Python can run pip. Some Python installs/venvs don't
+    # have pip available out of the box — try a few fallbacks to bootstrap it.
+    check_pip = subprocess.run([str(python_exe), "-m", "pip", "--version"], capture_output=True)
+    if check_pip.returncode != 0:
+        print("pip not found in venv — attempting to bootstrap pip...")
+        # First try ensurepip (bundled in many Python builds)
+        try:
+            subprocess.check_call([str(python_exe), "-m", "ensurepip", "--upgrade"])
+            print("Bootstrapped pip with ensurepip.")
+        except subprocess.CalledProcessError:
+            # As a last resort, download get-pip.py and run it (best-effort).
+            try:
+                import tempfile
+                import urllib.request
+
+                print("ensurepip failed — downloading get-pip.py to bootstrap pip...")
+                tmp = tempfile.NamedTemporaryFile(delete=False, suffix="-get-pip.py")
+                urllib.request.urlretrieve("https://bootstrap.pypa.io/get-pip.py", tmp.name)
+                tmp.close()
+                subprocess.check_call([str(python_exe), tmp.name])
+                os.unlink(tmp.name)
+                print("Bootstrapped pip with get-pip.py.")
+            except Exception:
+                print("Failed to bootstrap pip in the venv — continuing but pip calls may fail.")
+
     # prefer invoking pip via `python -m pip` — this works reliably on Windows
     # (calling pip.exe directly can fail when pip self-upgrades)
     subprocess.check_call([str(python_exe), "-m", "pip", "install", "--upgrade", "pip"])

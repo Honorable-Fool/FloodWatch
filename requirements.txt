@@ -1,11 +1,27 @@
-pandas
-scikit-learn
-joblib
-fastapi
-uvicorn[standard]
-python-multipart
-python-dotenv
+# Core NLP and ML (use wheels compatible with Python 3.14)
+numpy==2.3.5
+pandas==2.3.3
+scikit-learn==1.7.2
+joblib==1.5.2
+
+# Excel support
+openpyxl==3.1.2
+
+# Visualization
+matplotlib==3.10.7
+seaborn==0.13.2
+
+# Web Framework (choose one)
+# Option 1: Flask
+flask==3.0.0
+flask-cors==4.0.0
+
+# Option 2: FastAPI (alternative)
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+
+# Utilities
+# allow pip to resolve a pydantic version compatible with the environment
 pydantic
-matplotlib
-seaborn
-numpy
+python-dotenv==1.0.0

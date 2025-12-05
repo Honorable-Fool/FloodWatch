@@ -1,14 +1,12 @@
 /* index.js
-   - populates datalist from /api/barangays (fallback to local CSV)
-   - submits form to POST /predict
-   - receives response and highlights only the rectangle-alert box (0/1/2)
+   - ML predict (/predict)
+   - NLP advisory auto-generation (/generate_from_risk)
 */
 
 // ---------------- CONFIG ----------------
-// uses your uploaded CSV fallback path so datalist can load if /api/barangays is down
 const API_BARANGAYS = "http://127.0.0.1:8000/api/barangays";
-const API_PREDICT = "http://127.0.0.1:8000/predict";
-// Local uploaded CSV path (developer-provided). This will be used as fallback when /api/barangays fails.
+const API_PREDICT  = "http://127.0.0.1:8000/predict";
+const API_NLP_RISK = "http://127.0.0.1:8001/generate_from_risk";
 const CSV_FALLBACK = "/mnt/data/floodwatch_MLdataset.csv";
 
 // ---------------- ELEMENTS ----------------
@@ -21,14 +19,16 @@ const rainfallInput = document.getElementById("rainfall");
 
 const form = document.getElementById("floodForm");
 
-// rectangle elements (only these will be used to show prediction)
 const rectYellow = document.querySelector(".rectangle-alert.yellow");
 const rectOrange = document.querySelector(".rectangle-alert.orange");
 const rectRed = document.querySelector(".rectangle-alert.red");
 
+const advisoryContent = document.getElementById("advisoryContent");
+
 // ---------------- state ----------------
-let barangays = []; // [{barangay, elevations: []}, ...]
-let barangayLookup = new Map(); // normalized -> object
+let barangays = [];
+let barangayLookup = new Map();
+let lastRiskLabel = null; // ⭐ store last risk label
 
 // ---------------- helpers ----------------
 function normalize(s) {
@@ -46,14 +46,17 @@ async function loadBarangays() {
     if (!resp.ok) throw new Error("API not available");
     const json = await resp.json();
     barangays = json.map(it => {
-      if (it.elevations && Array.isArray(it.elevations)) return { barangay: it.barangay, elevations: it.elevations };
-      if (it.elevation !== undefined) return { barangay: it.barangay, elevations: [it.elevation] };
+      if (it.elevations && Array.isArray(it.elevations))
+        return { barangay: it.barangay, elevations: it.elevations };
+      if (it.elevation !== undefined)
+        return { barangay: it.barangay, elevations: [it.elevation] };
       return { barangay: it.barangay, elevations: [] };
     });
   } catch (err) {
     console.warn("Failed to fetch API barangays - trying CSV fallback", err);
     try {
       const r = await fetch(CSV_FALLBACK);
+      if (!r.ok) throw new Error("CSV fallback not available");
       const text = await r.text();
       barangays = parseCsvToBarangays(text);
     } catch (err2) {
@@ -76,9 +79,11 @@ function parseCsvToBarangays(csvText) {
     const cols = L.split(",").map(c => c.trim().replace(/^"|"$/g, ""));
     const name = cols[bIdx] || "";
     const elev = parseFloat(cols[eIdx] || "NaN");
-    if (!name || Number.isNaN(elev)) continue;
-    if (!groups.has(name)) groups.set(name, []);
-    groups.get(name).push(elev);
+    if (!name) continue;
+    if (!Number.isNaN(elev)) {
+      if (!groups.has(name)) groups.set(name, []);
+      groups.get(name).push(elev);
+    }
   }
   return Array.from(groups.entries()).map(([barangay, elevations]) => ({ barangay, elevations }));
 }
@@ -99,36 +104,45 @@ function populateDatalist() {
   });
 }
 
-// ---------------- input change handling ----------------
+// ---------------- input change ----------------
 locationInput.addEventListener("change", () => {
   const norm = normalize(locationInput.value);
   const found = barangayLookup.get(norm);
+  const elevPreviewEl = document.getElementById("elevPreviewValue");
+
   if (found) {
     locationInput.dataset.valid = "true";
     locationInput.dataset.barangay = found.barangay;
-    if (found.elevations && found.elevations.length) elevationInput.value = String(found.elevations[0]);
-    else elevationInput.value = "";
+
+    elevationInput.value = found.elevations.length
+      ? String(found.elevations[0])
+      : "";
+
+    elevPreviewEl.textContent = found.elevations.length
+      ? found.elevations[Math.floor(Math.random() * found.elevations.length)].toFixed(3)
+      : "—";
   } else {
     locationInput.dataset.valid = "false";
     locationInput.dataset.barangay = "";
     elevationInput.value = "";
-  }
-  // inside your existing locationInput change handler, after finding 'found'.
-// set preview:
-  const elevPreviewEl = document.getElementById("elevPreviewValue");
-  if (found && found.elevations && found.elevations.length) {
-    const sampleLocal = found.elevations[Math.floor(Math.random()*found.elevations.length)];
-    elevPreviewEl.textContent = sampleLocal.toFixed(3);
-} else {
     elevPreviewEl.textContent = "—";
-}
-
+  }
 });
 
-// ---------------- form submit -> call predict ----------------
+// ---------------- FORM SUBMIT ----------------
 form.addEventListener("submit", async (ev) => {
   ev.preventDefault();
+  await predictFlood();
+});
+
+// ---------------- MAIN FUNCTION ----------------
+async function predictFlood() {
   clearActive();
+  
+  // Clear previous advisory first
+  if (advisoryContent) {
+    advisoryContent.innerText = "Loading advisory...";
+  }
 
   const raw = locationInput.value.trim();
   const norm = normalize(raw);
@@ -136,15 +150,20 @@ form.addEventListener("submit", async (ev) => {
 
   if (!found) {
     alert("Please choose a Barangay from the suggestions (exact match).");
-    locationInput.focus();
-    return;
+    return locationInput.focus();
   }
 
   const duration = Number(durationInput.value);
   const rainfall = Number(rainfallInput.value);
 
-  if (!(duration > 0)) { alert("Enter a valid duration (e.g., 1,3,6)."); durationInput.focus(); return; }
-  if (!(rainfall >= 0)) { alert("Enter a valid rainfall intensity (>= 0)."); rainfallInput.focus(); return; }
+  if (!(duration > 0)) {
+    alert("Enter a valid duration (e.g., 1,3,6).");
+    return durationInput.focus();
+  }
+  if (!(rainfall >= 0)) {
+    alert("Enter valid rainfall intensity (>= 0).");
+    return rainfallInput.focus();
+  }
 
   const payload = {
     Barangay: found.barangay,
@@ -153,32 +172,112 @@ form.addEventListener("submit", async (ev) => {
   };
 
   try {
-    const res = await fetch(API_PREDICT, {
+    // ---------------- ML PREDICTION ----------------
+    console.log("Sending ML prediction request...", payload);
+    const response = await fetch(API_PREDICT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
 
-    if (!res.ok) {
-      const txt = await res.text();
-      throw new Error(txt || "Prediction API error");
+    if (!response.ok) {
+      const txt = await response.text().catch(() => "Unknown error from ML API");
+      console.error("ML API error:", txt);
+      throw new Error(`ML API error: ${txt}`);
     }
 
-    const data = await res.json();
-    // Highlight only the rectangle alert corresponding to numeric_label (0/1/2)
+    const result = await response.json();
+    console.log("ML API response:", result);
+
+    // ---------------- COLOR HIGHLIGHT ----------------
     clearActive();
-    if (data.numeric_label === 0 && rectYellow) rectYellow.classList.add("active");
-    if (data.numeric_label === 1 && rectOrange) rectOrange.classList.add("active");
-    if (data.numeric_label === 2 && rectRed) rectRed.classList.add("active");
+    if (result.numeric_label === 0) rectYellow.classList.add("active");
+    if (result.numeric_label === 1) rectOrange.classList.add("active");
+    if (result.numeric_label === 2) rectRed.classList.add("active");
 
-    // We DO NOT use an advisory box to display ML results per your request.
-    // (If you later want to show sampled elevation, you can do so separately.)
+    // ---------------- NLP CALL ----------------
+    const riskLabel = result.risk_label || result.label || (
+      result.numeric_label === 0 ? "Low" :
+      result.numeric_label === 1 ? "Moderate" : "High"
+    );
 
-  } catch (err) {
-    console.error("Prediction failed:", err);
-    alert("Prediction failed. Check console for details.");
+    console.log("Risk label determined:", riskLabel);
+    lastRiskLabel = riskLabel; // ⭐ store latest risk
+
+    let nlp = { advisory: "No advisory available." };
+    try {
+      console.log("Calling NLP API with risk:", riskLabel);
+      const nlpResponse = await fetch(API_NLP_RISK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ risk: riskLabel })
+      });
+
+      console.log("NLP API response status:", nlpResponse.status);
+      
+      if (nlpResponse.ok) {
+        nlp = await nlpResponse.json();
+        console.log("NLP API response data:", nlp);
+      } else {
+        const errorText = await nlpResponse.text().catch(() => "Unknown error");
+        console.warn("NLP API returned bad status:", nlpResponse.status, errorText);
+        nlp.advisory = `NLP API error: ${nlpResponse.status}. ${errorText}`;
+      }
+    } catch (nlpErr) {
+      console.warn("NLP service unreachable:", nlpErr);
+      nlp.advisory = `NLP service error: ${nlpErr.message}. Please check if NLP API is running on port 8001.`;
+    }
+
+    // ---------------- SHOW ADVISORY ----------------
+    if (advisoryContent) {
+      advisoryContent.innerText = nlp.advisory || "No advisory available.";
+    }
+
+    // ---------------- UPDATE SAFETY GUIDELINES ----------------
+    let riskLevel = null;
+    if (result.numeric_label === 0) riskLevel = 0;
+    else if (result.numeric_label === 1) riskLevel = 1;
+    else if (result.numeric_label === 2) riskLevel = 2;
+    
+    if (riskLevel !== null && typeof updateSafetyGuidelines === 'function') {
+      updateSafetyGuidelines(riskLevel);
+    } else {
+      console.warn("updateSafetyGuidelines function not found");
+    }
+
+  } catch (error) {
+    console.error("Error in predictFlood:", error);
+    alert("Error connecting to backend: " + (error.message || error));
+    
+    // Reset safety guidelines on error
+    if (typeof resetSafetyGuidelines === 'function') {
+      resetSafetyGuidelines();
+    }
   }
-});
+}
+
+// ---------------- OPTIONAL: Refresh Advisory Only ----------------
+async function refreshAdvisory() {
+  if (!lastRiskLabel) return;
+
+  try {
+    const res = await fetch(API_NLP_RISK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ risk: lastRiskLabel })
+    });
+    if (!res.ok) throw new Error("Failed to fetch advisory");
+
+    const data = await res.json();
+    advisoryContent.innerText = data.advisory;
+  } catch (err) {
+    console.error(err);
+    advisoryContent.innerText = "No advisory available.";
+  }
+}
 
 // ---------------- init ----------------
 loadBarangays();
+
+// Add console log to check if script loaded
+console.log("FloodWatch index.js loaded successfully");

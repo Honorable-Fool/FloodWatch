@@ -10,7 +10,6 @@
 
 <body>
 
-
   <nav class="navbar">
     <div class="nav-container">
 
@@ -18,14 +17,12 @@
         <img src="FloodWatch.png" alt="FloodWatch Logo">
       </div>
 
-     
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="#">Documentation</a>
         <a href="AboutPage.html">About</a>
       </div>
 
-      
     </div>
 
     <div class="dropdown-menu">
@@ -36,45 +33,38 @@
     </div>
   </nav>
 
-  
   <div class="layout">
 
-    
     <div class="sidebar">
 
       <form id="floodForm">
-            <!-- Location Input: Search box with autocomplete filtering -->
-            <!-- simple datalist input -->
-          <label for="location">Location (Barangay):</label>
-          <input list="barangayList" id="location" name="location" placeholder="Dasmariñas Barangay" autocomplete="off" required>
-          <datalist id="barangayList"></datalist>
-          <!-- put this after your barangay input -->
-          <div id="elevationPreview" class="elevation-preview" style="color: rgb(39, 30, 177); margin-bottom:12px;">
+        <label for="location">Location (Barangay):</label>
+        <input list="barangayList" id="location" name="location" placeholder="Dasmariñas Barangay" autocomplete="off" required>
+        <datalist id="barangayList"></datalist>
+
+        <!-- Elevation Preview -->
+        <div id="elevationPreview" class="elevation-preview" style="color: rgb(39, 30, 177); margin-bottom:12px;">
           <small>Elevation sample: <span id="elevPreviewValue">—</span> m</small>
-          </div>
+        </div>
 
+        <input type="hidden" id="elevation_m" name="elevation_m" />
 
-          <!-- Hidden field to hold elevation_m (set automatically) -->
-          <input type="hidden" id="elevation_m" name="elevation_m" />
+        <label for="duration">Rainfall Duration (hours):</label>
+        <input type="number" id="duration" name="duration" list="options" placeholder="e.g., 1" required>
+        <datalist id="options">
+            <option value="1">
+            <option value="3">
+            <option value="6">
+            <option value="12">
+            <option value="24">
+        </datalist>
 
-            <label for="duration">Rainfall Duration (hours):</label>
-            <input type="number" id="duration" name="duration" list="options" placeholder="e.g., 1" required>
-            <datalist id="options">
-                <option value="1">
-                <option value="3">
-                <option value="6">
-                <option value="12">
-                <option value="24">
-                </datalist>
-            <label for="rainfall">Rainfall Intensity (mm/hr):</label>
-            <input type="number" id="rainfall" name="rainfall" step="any" placeholder="e.g., 0.1" required>
-          <button class="submit-form" type="submit">Predict Flood Risk</button>
-        </form>
+        <label for="rainfall">Rainfall Intensity (mm/hr):</label>
+        <input type="number" id="rainfall" name="rainfall" step="any" placeholder="e.g., 0.1" required>
 
+        <button class="submit-form" type="submit">Predict Flood Risk</button>
+      </form>
 
-      <button class="location-btn">Use Current Location</button>
-
-      
 
       <h3>Current Alert Level:</h3>
 
@@ -89,7 +79,7 @@
         <span>Moderate</span>
         <span>High</span>
       </div>
-      
+
       <div class="rectangle-alert yellow" data-value="0"><p>YELLOW WARNING 🌧</p></div>
       <div class="rectangle-alert orange" data-value="1"><p>ORANGE WARNING 🌧</p></div>
       <div class="rectangle-alert red" data-value="2"><p>RED WARNING 🌧</p></div>
@@ -105,18 +95,80 @@
         </iframe>
       </div>
 
+      <!-- Official NLP Advisory Section -->
       <div class="advisory-box">
-        <!--
+        <h3 style="margin-bottom:10px;">
+          <span class="warning-icon" id="warningIcon" style="display:none;"></span>
+          Official NLP Advisory
+        </h3>
+        <p id="advisoryContent" style="font-size: 15px; line-height: 1.6; color: #222;">
+          Enter rainfall details and click <strong>Predict Flood Risk</strong> to see the advisory here.
+        </p>
+      </div>
+
+      <!-- NEW: Safety Guidelines Section -->
+      <div class="safety-box">
+        <h3 style="margin-top:0; margin-bottom:12px; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom:5px;">
+          <i class="fas fa-shield-alt" style="color: #3498db; margin-right:8px;"></i>
+          What to Do: FloodWatch Safety Guidelines
+        </h3>
         
-        <p><span class="yellow-dot"></span> <strong>Ankle Deep</strong></p>
-        <p><strong>OFFICIAL ADVISORY:</strong> YELLOW RAINFALL WARNING</p>
-        <p><strong>IMPACT:</strong> Flooding is possible in low-lying areas (Ankle Deep likely).</p>
-        <p><strong>ACTION:</strong> Monitor the local situation closely. Secure outdoor items and prepare your emergency kit.</p>
-        -->
+        <div id="safetyLevelIndicator" class="safety-level" style="display:none; padding:8px 12px; border-radius:6px; margin-bottom:10px; font-weight:bold; text-align:center;">
+          <span id="safetyLevelText"></span>
+        </div>
+        
+        <div class="safety-tips" id="safetyTips">
+          <div class="safety-tip">
+            <i class="fas fa-info-circle"></i>
+            <span>Select a barangay and click "Predict Flood Risk" to see specific safety guidelines for the current alert level.</span>
+          </div>
+          <div class="safety-tip">
+            <i class="fas fa-volume-up"></i>
+            <span>Always monitor official PAGASA bulletins through radio, TV, or social media.</span>
+          </div>
+          <div class="safety-tip">
+            <i class="fas fa-phone-alt"></i>
+            <span>Save emergency hotlines: NDRRMC (911-1406), PAGASA (433-8526).</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tutorial-box">
+        <h3 style="margin-bottom:10px;"><strong>Rainfall Intensity (mm/hr) Guide:</strong></h3>
+
+        <div style="margin-top: 10px;">
+          <div style="padding: 10px; margin-bottom: 8px; background: #e8f5e9; border-left: 6px solid #ffeb3b;">
+            <strong>0.1 – 10.9 mm/hr — Light Rain</strong><br>
+            Ambon-ambon lang. Roads are safe.
+          </div>
+
+          <div style="padding: 10px; margin-bottom: 8px; background: #fffde7; border-left: 6px solid #ff9800;">
+            <strong>11 – 27.9 mm/hr — Moderate Rain</strong><br>
+            Tuloy-tuloy na ulan. Use umbrella.
+          </div>
+
+          <div style="padding: 10px; margin-bottom: 8px; background: #fff3e0; border-left: 6px solid #e53935;">
+            <strong>28 mm/hr or greater — Heavy Rain</strong><br>
+            Malakas na ulan. Some areas may flood.
+          </div>
+        </div>
       </div>
 
     </div>
+
   </div>
+
+  <!-- JavaScript Files -->
   <script src="index.js"></script>
+  <script src="safety_guidelines.js"></script>
+  
+  <script>
+    // Initialize safety guidelines on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof resetSafetyGuidelines === 'function') {
+        resetSafetyGuidelines();
+      }
+    });
+  </script>
 </body>
 </html>

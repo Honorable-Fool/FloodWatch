@@ -153,7 +153,6 @@ section .main-container{
   background: #0d2557;
   color: white;
   padding: 20px;
-  height: 100vh;
 }
 
 label {
@@ -297,15 +296,25 @@ datalist option {
 }
 
 .advisory-box {
-  height: 250px;
-  width: 100%;
-  border-radius: 10px;
-  background-color: #055505;
-  opacity: 0.2;
-  border: 1px solid black;
-  overflow: hidden;
-  margin-bottom: 20px;
+    background: #AFD085;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    min-height: 120px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
+
+.tutorial-box {
+    background: #21b8ed;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    min-height: 120px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
 
 .team {
   text-align: center;
@@ -325,3 +334,73 @@ datalist option {
   background-color: gray;
   border-radius: 50%;
 }
+
+/* Safety guidelines styles */
+.safety-box {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.safety-box h3 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+}
+
+.safety-tips {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.safety-tip {
+  background: white;
+  border-left: 4px solid #3498db;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+}
+
+.safety-tip i {
+  color: #2ecc71;
+  margin-right: 10px;
+  margin-top: 2px;
+  font-size: 16px;
+}
+
+.safety-level {
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.safety-yellow { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+.safety-orange { background: #fff3e0; border: 1px solid #ffcc80; color: #e65100; }
+.safety-red { background: #fdeaea; border: 1px solid #f5c6cb; color: #721c24; }
+
+.warning-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  margin-right: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.warning-yellow { background: #ffc107; color: #000; }
+.warning-orange { background: #ff9800; color: #fff; }
+.warning-red { background: #f44336; color: #fff; }

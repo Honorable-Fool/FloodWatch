@@ -1,0 +1,274 @@
+|--- Rainfall_mm <= -0.58
+|   |--- Rainfall_mm <= -0.65
+|   |   |--- class: 0.0
+|   |--- Rainfall_mm >  -0.65
+|   |   |--- Elevation_m <= -0.05
+|   |   |   |--- Elevation_m <= -1.24
+|   |   |   |   |--- Rainfall_mm <= -0.64
+|   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Rainfall_mm >  -0.64
+|   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Elevation_m >  -1.24
+|   |   |   |   |--- Elevation_m <= -0.09
+|   |   |   |   |   |--- Elevation_m <= -0.20
+|   |   |   |   |   |   |--- Elevation_m <= -0.95
+|   |   |   |   |   |   |   |--- Elevation_m <= -1.10
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -1.10
+|   |   |   |   |   |   |   |   |--- Rainfall_mm <= -0.64
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Rainfall_mm >  -0.64
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |--- Elevation_m >  -0.95
+|   |   |   |   |   |   |   |--- Elevation_m <= -0.50
+|   |   |   |   |   |   |   |   |--- Duration_hr <= -0.87
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Duration_hr >  -0.87
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -0.50
+|   |   |   |   |   |   |   |   |--- Rainfall_mm <= -0.64
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Rainfall_mm >  -0.64
+|   |   |   |   |   |   |   |   |   |--- Duration_hr <= 1.72
+|   |   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |   |   |--- Duration_hr >  1.72
+|   |   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Elevation_m >  -0.20
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |--- Elevation_m >  -0.09
+|   |   |   |   |   |--- class: 1.0
+|   |   |--- Elevation_m >  -0.05
+|   |   |   |--- class: 0.0
+|--- Rainfall_mm >  -0.58
+|   |--- Duration_hr <= -0.36
+|   |   |--- Rainfall_mm <= -0.23
+|   |   |   |--- Duration_hr <= -0.98
+|   |   |   |   |--- Elevation_m <= -0.81
+|   |   |   |   |   |--- class: 2.0
+|   |   |   |   |--- Elevation_m >  -0.81
+|   |   |   |   |   |--- Elevation_m <= 0.01
+|   |   |   |   |   |   |--- Elevation_m <= -0.65
+|   |   |   |   |   |   |   |--- Elevation_m <= -0.70
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -0.70
+|   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |--- Elevation_m >  -0.65
+|   |   |   |   |   |   |   |--- Rainfall_mm <= -0.47
+|   |   |   |   |   |   |   |   |--- Duration_hr <= -0.99
+|   |   |   |   |   |   |   |   |   |--- Rainfall_mm <= -0.48
+|   |   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |   |--- Rainfall_mm >  -0.48
+|   |   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Duration_hr >  -0.99
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Rainfall_mm >  -0.47
+|   |   |   |   |   |   |   |   |--- Duration_hr <= -0.98
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Duration_hr >  -0.98
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |--- Elevation_m >  0.01
+|   |   |   |   |   |   |--- Duration_hr <= -0.99
+|   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |--- Duration_hr >  -0.99
+|   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Duration_hr >  -0.98
+|   |   |   |   |--- Duration_hr <= -0.74
+|   |   |   |   |   |--- Duration_hr <= -0.75
+|   |   |   |   |   |   |--- Rainfall_mm <= -0.49
+|   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |--- Rainfall_mm >  -0.49
+|   |   |   |   |   |   |   |--- Rainfall_mm <= -0.43
+|   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |--- Rainfall_mm >  -0.43
+|   |   |   |   |   |   |   |   |--- Elevation_m <= 0.07
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Elevation_m >  0.07
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Duration_hr >  -0.75
+|   |   |   |   |   |   |--- Duration_hr <= -0.75
+|   |   |   |   |   |   |   |--- Elevation_m <= 0.15
+|   |   |   |   |   |   |   |   |--- Elevation_m <= -0.06
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Elevation_m >  -0.06
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Elevation_m >  0.15
+|   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |--- Duration_hr >  -0.75
+|   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Duration_hr >  -0.74
+|   |   |   |   |   |--- Rainfall_mm <= -0.35
+|   |   |   |   |   |   |--- Elevation_m <= 0.05
+|   |   |   |   |   |   |   |--- Elevation_m <= -0.04
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -0.04
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |--- Elevation_m >  0.05
+|   |   |   |   |   |   |   |--- Elevation_m <= 0.14
+|   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |--- Elevation_m >  0.14
+|   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Rainfall_mm >  -0.35
+|   |   |   |   |   |   |--- Duration_hr <= -0.73
+|   |   |   |   |   |   |   |--- Rainfall_mm <= -0.26
+|   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |--- Rainfall_mm >  -0.26
+|   |   |   |   |   |   |   |   |--- Duration_hr <= -0.74
+|   |   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |   |--- Duration_hr >  -0.74
+|   |   |   |   |   |   |   |   |   |--- Duration_hr <= -0.74
+|   |   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |   |--- Duration_hr >  -0.74
+|   |   |   |   |   |   |   |   |   |   |--- Duration_hr <= -0.74
+|   |   |   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |   |   |   |--- Duration_hr >  -0.74
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |   |   |--- Duration_hr >  -0.73
+|   |   |   |   |   |   |   |--- Elevation_m <= -0.27
+|   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -0.27
+|   |   |   |   |   |   |   |   |--- Rainfall_mm <= -0.31
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |   |--- Rainfall_mm >  -0.31
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |--- Rainfall_mm >  -0.23
+|   |   |   |--- Rainfall_mm <= -0.02
+|   |   |   |   |--- Duration_hr <= -0.41
+|   |   |   |   |   |--- Duration_hr <= -0.73
+|   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |--- Duration_hr >  -0.73
+|   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |--- Duration_hr >  -0.41
+|   |   |   |   |   |--- Elevation_m <= -0.44
+|   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |--- Elevation_m >  -0.44
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Rainfall_mm >  -0.02
+|   |   |   |   |--- Duration_hr <= -0.75
+|   |   |   |   |   |--- Rainfall_mm <= 0.38
+|   |   |   |   |   |   |--- Elevation_m <= -0.06
+|   |   |   |   |   |   |   |--- Duration_hr <= -0.75
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Duration_hr >  -0.75
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |--- Elevation_m >  -0.06
+|   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Rainfall_mm >  0.38
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |--- Duration_hr >  -0.75
+|   |   |   |   |   |--- Rainfall_mm <= 0.04
+|   |   |   |   |   |   |--- Rainfall_mm <= -0.00
+|   |   |   |   |   |   |   |--- Elevation_m <= -0.63
+|   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -0.63
+|   |   |   |   |   |   |   |   |--- Elevation_m <= 0.09
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Elevation_m >  0.09
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |--- Rainfall_mm >  -0.00
+|   |   |   |   |   |   |   |--- Elevation_m <= -0.65
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -0.65
+|   |   |   |   |   |   |   |   |--- Duration_hr <= -0.38
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Duration_hr >  -0.38
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |--- Rainfall_mm >  0.04
+|   |   |   |   |   |   |--- Rainfall_mm <= 0.10
+|   |   |   |   |   |   |   |--- Rainfall_mm <= 0.09
+|   |   |   |   |   |   |   |   |--- Rainfall_mm <= 0.07
+|   |   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |   |--- Rainfall_mm >  0.07
+|   |   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |--- Rainfall_mm >  0.09
+|   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |--- Rainfall_mm >  0.10
+|   |   |   |   |   |   |   |--- Duration_hr <= -0.74
+|   |   |   |   |   |   |   |   |--- Elevation_m <= -0.59
+|   |   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |   |--- Elevation_m >  -0.59
+|   |   |   |   |   |   |   |   |   |--- Duration_hr <= -0.74
+|   |   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |   |   |--- Duration_hr >  -0.74
+|   |   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Duration_hr >  -0.74
+|   |   |   |   |   |   |   |   |--- Elevation_m <= -0.81
+|   |   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |   |--- Elevation_m >  -0.81
+|   |   |   |   |   |   |   |   |   |--- Duration_hr <= -0.41
+|   |   |   |   |   |   |   |   |   |   |--- Duration_hr <= -0.73
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |   |   |   |   |   |   |--- Duration_hr >  -0.73
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |--- Duration_hr >  -0.41
+|   |   |   |   |   |   |   |   |   |   |--- Duration_hr <= -0.40
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |   |   |   |   |   |   |--- Duration_hr >  -0.40
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |--- Duration_hr >  -0.36
+|   |   |--- Elevation_m <= -0.80
+|   |   |   |--- Rainfall_mm <= 0.38
+|   |   |   |   |--- Duration_hr <= 0.31
+|   |   |   |   |   |--- Rainfall_mm <= -0.45
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Rainfall_mm >  -0.45
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Duration_hr >  0.31
+|   |   |   |   |   |--- Elevation_m <= -0.84
+|   |   |   |   |   |   |--- Elevation_m <= -1.39
+|   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |--- Elevation_m >  -1.39
+|   |   |   |   |   |   |   |--- Elevation_m <= -1.20
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -1.20
+|   |   |   |   |   |   |   |   |--- Rainfall_mm <= -0.26
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |   |--- Rainfall_mm >  -0.26
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |--- Elevation_m >  -0.84
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Rainfall_mm >  0.38
+|   |   |   |   |--- class: 2.0
+|   |   |--- Elevation_m >  -0.80
+|   |   |   |--- Elevation_m <= 0.04
+|   |   |   |   |--- Elevation_m <= 0.02
+|   |   |   |   |   |--- Elevation_m <= -0.67
+|   |   |   |   |   |   |--- Elevation_m <= -0.71
+|   |   |   |   |   |   |   |--- Duration_hr <= 0.33
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |--- Duration_hr >  0.33
+|   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |--- Elevation_m >  -0.71
+|   |   |   |   |   |   |   |--- Elevation_m <= -0.70
+|   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |   |   |--- Elevation_m >  -0.70
+|   |   |   |   |   |   |   |   |--- Duration_hr <= 0.29
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Duration_hr >  0.29
+|   |   |   |   |   |   |   |   |   |--- class: 2.0
+|   |   |   |   |   |--- Elevation_m >  -0.67
+|   |   |   |   |   |   |--- Duration_hr <= 1.92
+|   |   |   |   |   |   |   |--- Rainfall_mm <= -0.19
+|   |   |   |   |   |   |   |   |--- Duration_hr <= 0.29
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |   |   |--- Duration_hr >  0.29
+|   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |--- Rainfall_mm >  -0.19
+|   |   |   |   |   |   |   |   |--- Rainfall_mm <= 2.40
+|   |   |   |   |   |   |   |   |   |--- Rainfall_mm <= 2.29
+|   |   |   |   |   |   |   |   |   |   |--- Rainfall_mm <= 0.35
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 4
+|   |   |   |   |   |   |   |   |   |   |--- Rainfall_mm >  0.35
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |   |   |   |   |   |   |--- Rainfall_mm >  2.29
+|   |   |   |   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |   |   |   |--- Rainfall_mm >  2.40
+|   |   |   |   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |   |--- Duration_hr >  1.92
+|   |   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |--- Elevation_m >  0.02
+|   |   |   |   |   |--- Elevation_m <= 0.03
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Elevation_m >  0.03
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |--- Elevation_m >  0.04
+|   |   |   |   |--- class: 0.0

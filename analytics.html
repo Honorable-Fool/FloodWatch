@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>FloodWatch Analytics</title>
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="FloodWatch.png" alt="FloodWatch Logo">
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="analytics.html">Analytics</a>
+      </div>
+    </div>
+    <div class="dropdown-menu">
+      <a href="index.html">Dashboard</a>
+      <a href="analytics.html">Analytics</a>
+  </nav>
+
+  <div class="layout">
+    <div class="sidebar">
+      <h3>Overview</h3>
+      <div class="stat-card">
+        <h4>Total Predictions</h4>
+        <p id="totalCount">0</p>
+      </div>
+      
+      <div class="stat-card">
+        <h4>High Risk Alerts</h4>
+        <p id="highCount" style="color: #ff4444;">0</p>
+      </div>
+
+      <div class="stat-card">
+        <h4>Most Frequent Location</h4>
+        <p id="topLocation" style="font-size: 0.9em;">-</p>
+      </div>
+
+      <button id="clearHistoryBtn" class="submit-form" style="background-color: #e74c3c; margin-top: 20px;">
+        Clear History
+      </button>
+    </div>
+
+    <div class="main-container">
+      
+      <div class="charts-grid">
+        <div class="chart-box">
+          <h3>Risk Level Distribution</h3>
+          <canvas id="riskChart"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Rainfall vs. Duration Trends</h3>
+          <canvas id="scatterChart"></canvas>
+        </div>
+      </div>
+
+      <div class="history-box">
+        <h3>Prediction History</h3>
+        <div class="table-responsive">
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Rain (mm)</th>
+                <th>Elev (m)</th>
+                <th>Risk Level</th>
+                <th>ML Logic</th>
+                <th>NLP Advisory</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="analytics.js"></script>
+</body>
+</html>

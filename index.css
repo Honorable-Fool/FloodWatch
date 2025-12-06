@@ -1,0 +1,613 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+/* =========================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Includes padding and border in the element's total width/height */
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100vh;          /* Forces the body to take up exactly 100% of the screen height */
+    overflow: hidden;       /* Disables the main browser scrollbar to prevent double scrolling */
+    background-color: #E1FFBB;
+    scroll-behavior: smooth; /* Enables smooth scrolling when jumping to anchors */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Stacks elements vertically: Navbar on top, Layout below */
+}
+
+/* --- Custom Scrollbar Styling (Webkit browsers) --- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #001A6E;    /* Dark blue scroll handle */
+    border-radius: 12px;    /* Rounds the corners of the scroll handle */
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #148fa5;    /* Lighter blue on hover */
+}
+
+
+/* =========================================
+   2. NAVIGATION BAR
+   ========================================= */
+nav.navbar {
+    /* Fixed Dimensions to ensure layout stability */
+    height: 90px;
+    min-height: 90px;
+    max-height: 90px;
+    width: 100%;
+
+    /* Appearance */
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    z-index: 100;           /* Ensures navbar stays on top of the map and other content */
+
+    /* Layout */
+    display: flex;
+    justify-content: space-between; /* Pushes Logo to the left and Links to the right */
+    align-items: center;    /* Vertically centers the items */
+    padding: 0 20px;
+}
+
+.nav-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Logo Styling --- */
+.logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;       /* Hides any part of the image that might overflow */
+}
+
+.logo img {
+    height: 90%;            /* Scales logo to fit 90% of the navbar height */
+    width: auto;            /* Maintains aspect ratio */
+    object-fit: contain;    /* Ensures the full image is visible */
+}
+
+.logo span {
+    color: #001A6E;
+    text-shadow: 0 0 10px #0f3238;
+}
+
+/* --- Navigation Links --- */
+.nav-links a {
+    position: relative;     /* Needed to position the underline effect absolutely */
+    font-size: 16px;
+    font-weight: 500;
+    color: #001A6E;
+    padding-bottom: 4px;
+    margin-right: 50px;
+}
+
+/* Hover Underline Animation */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;              /* Start invisible (0 width) */
+    height: 2px;
+    background: #0077cc;
+    transition: width 0.3s ease; /* Animate the width change */
+}
+
+.nav-links a:hover::after {
+    width: 100%;            /* Expand to full width on hover */
+}
+
+/* --- Mobile Menu (Hidden by default) --- */
+.dropdown-menu {
+    display: none;          /* Hidden unless toggled via JS (if implemented) */
+    flex-direction: column;
+    background: white;
+    width: 100%;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.dropdown-menu a {
+    padding: 12px 0;
+    color: black;
+    font-size: 18px;
+}
+
+.dropdown-menu .cancel {
+    margin-top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .nav-links {
+        display: none;      /* Hide desktop links on small screens */
+    }
+}
+
+/* =========================================
+   3. ANALYTICS PAGE STYLES (New Section)
+   ========================================= */
+
+/* Stat Cards in Sidebar */
+.stat-card {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+}
+.stat-card h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.9em;
+    opacity: 0.8;
+    color: #aebed6;         /* Light grey-blue text */
+}
+.stat-card p {
+    font-size: 1.8em;       /* Large number font */
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Charts Grid Layout */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.chart-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Card shadow */
+    min-height: 300px;      /* Ensure charts have enough height */
+}
+
+/* History Table Styles */
+.history-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex: 1;                /* Take up remaining vertical space */
+    overflow: hidden;       /* Prevent box from expanding infinitely */
+    display: flex;
+    flex-direction: column;
+}
+
+.table-responsive {
+    overflow-y: auto;       /* Enable scrolling for the table only */
+    flex: 1;
+    margin-top: 10px;
+}
+
+.analytics-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove gaps between borders */
+    font-size: 0.9em;
+}
+
+.analytics-table th, .analytics-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.analytics-table th {
+    background-color: #f8f9fa;
+    position: sticky;       /* Keep header visible while scrolling */
+    top: 0;
+    font-weight: 600;
+    color: #0d2557;
+}
+
+.analytics-table tr:hover {
+    background-color: #f1f1f1; /* Highlight row on hover */
+}
+
+/* Risk Badges (Colored labels in table) */
+.risk-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+.badge-yellow { background-color: #FFC107; color: black; }
+.badge-orange { background-color: #FF9800; }
+.badge-red { background-color: #F44336; }
+
+/* Responsive Charts for Mobile */
+@media (max-width: 900px) {
+    .charts-grid {
+        grid-template-columns: 1fr; /* Stack charts vertically on mobile */
+    }
+}
+
+/* =========================================
+   4. DASHBOARD LAYOUT (Sidebar + Main)
+   ========================================= */
+.layout {
+    flex: 1;                /* Fills remaining vertical space below Navbar */
+    display: flex;          /* Horizontal layout: Sidebar | Main Content */
+    overflow: hidden;       /* Prevents the parent container itself from scrolling */
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Sidebar (Left Panel) --- */
+.sidebar {
+    width: 400px;           /* Fixed width */
+    background: #0d2557;    /* Dark blue background */
+    color: white;
+    padding: 20px;
+    flex-shrink: 0;         /* Prevent shrinking when window is small */
+    height: 100%;
+
+    /* Internal Scrolling */
+    overflow-y: auto;       /* Enables vertical scrolling only inside the sidebar */
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;      /* Prevents scroll from affecting parent */
+    -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS */
+}
+
+.sidebar h3 {
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+/* --- Main Content (Right Panel) --- */
+.main-container {
+    flex: 1;                /* Fills the remaining width */
+    padding: 20px;
+    background: #e9ffcf;    /* Light green background */
+    height: 100%;
+
+    /* Internal Scrolling */
+    overflow-y: auto;       /* Enables vertical scrolling only inside main area */
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================
+   5. FORM ELEMENTS
+   ========================================= */
+#floodForm {
+    max-width: 500px;
+    margin: 0 auto 20px auto; /* Centers form horizontally */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #0d2557;
+}
+
+#floodForm label {
+    color: #0d2557;
+    font-size: 1em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* --- Location Input Wrapper --- */
+.location-wrapper {
+    display: flex;          /* Aligns input and button side-by-side */
+    gap: 8px;               /* Space between input and button */
+    align-items: flex-start;
+    width: 100%;
+}
+
+.location-wrapper input {
+    flex: 1;                /* Input takes all available width */
+    margin-bottom: 15px; 
+}
+
+/* --- Locate Me Button --- */
+.locate-btn {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 44px;            /* Square shape */
+    height: 44px;           /* Matches input height */
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.locate-btn:hover {
+    background-color: #0468d3;
+}
+
+.locate-btn:active {
+    transform: scale(0.95); /* Click shrink effect */
+}
+
+input[type="text"],
+input[type="number"],
+input[list] {
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+input:focus {
+    border-color: #007bff;  /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+datalist option {
+    padding: 5px;
+}
+
+.submit-form {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.submit-form:hover {
+    background-color: #0056b3;
+}
+
+.submit-form:active {
+    background-color: #004085;
+}
+
+#elevationPreview {
+    color: rgb(39, 30, 177);
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   6. ALERT LEVEL INDICATORS
+   ========================================= */
+.alert-bar {
+    display: flex;          /* Creates the horizontal bar strips */
+    margin: 10px 0;
+}
+
+.alert-bar .bar {
+    flex: 1;                /* Equal width for each color segment */
+    height: 10px;
+}
+
+.alert-labels {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+/* Risk Box Styling */
+.rectangle-alert {
+    width: 100%;
+    padding: 12px;
+    opacity: 0.2;           /* Dimmed by default */
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.rectangle-alert p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+    color: black;
+}
+
+/* Active State (Light Up) */
+.rectangle-alert.active {
+    opacity: 1;             /* Fully visible */
+    transform: translateY(-3px); /* Slight pop-up effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Colors */
+.low, .yellow { background: #FFFF00; }
+.moderate, .orange { background: #FF5F15; }
+.high, .red { background: #FF0000; }
+
+.warning-yellow { background: #FFFF00; color: #000; }
+.warning-orange { background: #FF5F15; color: #fff; }
+.warning-red { background: #FF0000; color: #fff; }
+
+
+/* =========================================
+   7. MAP & CONTENT BOXES
+   ========================================= */
+.map-box {
+    width: 100%;
+    height: 500px;          /* Fixed height for map */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: white;
+}
+
+#map {
+    width: 100%;
+    height: 100%;           /* Fills the map-box */
+    z-index: 1;
+}
+
+.leaflet-container {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Map Legend */
+.legend {
+    background: white;
+    padding: 10px;
+    line-height: 1.5em;
+    color: #555;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+    border-radius: 3px;
+}
+
+/* City Boundary Overlay */
+.city-boundary {
+    stroke: #7be1e1;        /* Cyan outline */
+    stroke-width: 4px;
+    stroke-opacity: 1;
+    stroke-dasharray: 10, 10; /* Dashed pattern */
+    fill: #7be1e1;          /* Cyan tint */
+    fill-opacity: 0.1;
+    transition: all 0.3s ease;
+}
+
+.city-boundary:hover {
+    fill-opacity: 0.2;
+    stroke: #60c4c4;        /* Darker on hover */
+}
+
+/* Info Boxes (Advisory, Safety, Tutorial) */
+.advisory-box,
+.tutorial-box,
+.safety-box {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    min-height: 120px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.advisory-box {
+    background: #82dcec;    /* Light Blue */
+}
+
+.tutorial-box {
+    background: #21b8ed;    /* Cyan */
+}
+
+.tutorial-box h5 {
+    margin-bottom: 10px;
+}
+
+.safety-box {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.safety-box h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+/* Safety Tips List */
+.safety-tips {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.safety-tip {
+    background: white;
+    border-left: 4px solid #3498db; /* Blue accent bar */
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+}
+
+.safety-tip i {
+    color: #2ecc71;
+    margin-right: 10px;
+    margin-top: 2px;
+    font-size: 16px;
+}
+
+.safety-level {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.warning-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#advisoryContent {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #222;
+}
+
+.rainfall-gauge {
+    color: #0d2557;
+}

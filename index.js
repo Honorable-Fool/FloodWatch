@@ -7,10 +7,11 @@
 */
 
 // ---------------- CONFIGURATION ----------------
-const API_BARANGAYS = "http://127.0.0.1:8000/api/barangays";
-const API_PREDICT  = "http://127.0.0.1:8000/predict";
-const API_NLP_RISK = "http://127.0.0.1:8001/generate_from_risk";
-const CSV_FALLBACK = "/mnt/data/floodwatch_MLdataset.csv";
+// Use relative paths so it works on Localhost AND the Cloud automatically
+const API_BARANGAYS = "/api/barangays";
+const API_PREDICT  = "/api/ml/predict";        // Renamed to avoid collision
+const API_NLP_RISK = "/api/nlp/generate";      // Renamed for clarity
+const CSV_FALLBACK = "floodwatch-ml/data/floodwatch_MLdataset.csv";
 
 // ---------------- DOM ELEMENTS ----------------
 const locationInput = document.getElementById("location"); // The text input box
